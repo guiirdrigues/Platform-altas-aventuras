@@ -1,0 +1,13 @@
+res://actors/enemy.tscn
+res://shaders/movements_clouds.gdshader
+res://levels/world_01.tscn
+res://prefabs/hitbox.tscn
+res://actors/player.tscn
+res://scripts/enemy.gd
+res://scripts/hitbox.gd
+res://scripts/player.gd
+res://scripts/coin.gd
+res://scripts/box_pieces.gd
+res://prefabs/break_box.tscn
+res://scripts/break_box.gd
+res://prefabs/box_pieces.tscn

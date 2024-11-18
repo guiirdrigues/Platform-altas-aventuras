@@ -1,0 +1,14 @@
+CollisionShape2D
+Area2D
+VisibleOnScreenNotifier2D
+Sprite2D
+RigidBody2D
+AnimationPlayer
+AnimationTree
+CharacterBody2D
+TouchScreenButton
+CanvasLayer
+RayCast2D
+Node2D
+RemoteTransform2D
+AnimatedSprite2D
