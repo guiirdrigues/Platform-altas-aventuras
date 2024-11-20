@@ -53,9 +53,9 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 			take_damage(Vector2(200,-200))
 		
 		
-func follow_camera(camera):
-	var camera_path = camera.get_path()
-	remote_transform.remote_path = camera_path
+#func follow_camera(camera):
+	#var camera_path = camera.get_path()
+	#remote_transform.remote_path = camera_path
 	
 func take_damage(knockback_force := Vector2.ZERO, duration := 0.25):
 	player_life -= 1
