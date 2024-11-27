@@ -74,6 +74,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a6qdo"]
+radius = 8.0
 
 [node name="coin" type="Area2D"]
 collision_layer = 8
@@ -81,7 +82,7 @@ script = ExtResource("1_gkkfn")
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2btc2")
-animation = &"collect"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="collision" type="CollisionShape2D" parent="."]

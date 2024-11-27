@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpussjybyseaj"]
+
+[ext_resource type="Texture2D" uid="uid://vlg6na6kyfv3" path="res://assets/Sprite Pack 2/7 - Rocket Cherry/Hopping (16 x 32).png" id="1_ab73j"]
+[ext_resource type="Script" path="res://scripts/cherry.gd" id="1_rjwkj"]
+[ext_resource type="Texture2D" uid="uid://ciqlhxliyul0h" path="res://assets/Sprite Pack 2/7 - Rocket Cherry/Hurt (16 x 32).png" id="2_f4xkp"]
+[ext_resource type="PackedScene" uid="uid://bqayul48emjd7" path="res://prefabs/hitbox.tscn" id="4_0ep3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4s6dp"]
+size = Vector2(12, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u64o6"]
+atlas = ExtResource("1_ab73j")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpwqf"]
+atlas = ExtResource("1_ab73j")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0hg3v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u64o6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpwqf")
+}],
+"loop": true,
+"name": &"hopping",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f4xkp")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujs0g"]
+size = Vector2(14, 3.75)
+
+[node name="cherry" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_rjwkj")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_4s6dp")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_0hg3v")
+animation = &"hurt"
+autoplay = "hopping"
+frame_progress = 1.0
+
+[node name="hitbox" parent="." instance=ExtResource("4_0ep3j")]
+
+[node name="collision" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -12.125)
+shape = SubResource("RectangleShape2D_ujs0g")
+debug_color = Color(0.991259, 0, 0.267899, 0.42)

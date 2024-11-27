@@ -87,7 +87,8 @@ size = Vector2(16, 11)
 size = Vector2(15, 7)
 
 [node name="player" type="CharacterBody2D"]
-position = Vector2(-1, -15)
+z_index = 1
+position = Vector2(36, 262)
 collision_mask = 94
 script = ExtResource("1_delcn")
 
@@ -133,6 +134,19 @@ collision_mask = 64
 [node name="head_collision" type="CollisionShape2D" parent="head_collider"]
 position = Vector2(-1, -0.5)
 shape = SubResource("RectangleShape2D_3g3w8")
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(275, -2)
+limit_left = 0
+limit_bottom = 338
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_vertical_offset = -0.59
+drag_left_margin = 0.4
+drag_top_margin = 0.6
+drag_right_margin = 0.6
+editor_draw_limits = true
+editor_draw_drag_margin = true
 
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="body_entered" from="head_collider" to="." method="_on_head_collider_body_entered"]

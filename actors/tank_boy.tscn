@@ -1,0 +1,268 @@
+[gd_scene load_steps=29 format=3 uid="uid://d3sr84uvaixc5"]
+
+[ext_resource type="Script" path="res://scripts/tank_boy.gd" id="1_j5j0b"]
+[ext_resource type="Texture2D" uid="uid://c23rxscdortae" path="res://assets/Sprite Pack 2/8 - Comrade Cheese Puff/Tank_Movement (32 x 32).png" id="1_jcjlq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e6il"]
+size = Vector2(27, 20)
+
+[sub_resource type="Animation" id="Animation_fte6g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_21gty"]
+resource_name = "enter_scene"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 7, 8, 7, 8, 7, 8, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_rnoab"]
+resource_name = "hide_bomb"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_5l72l"]
+resource_name = "missile_attack"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_t5157"]
+resource_name = "moving"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 0]
+}
+
+[sub_resource type="Animation" id="Animation_re4xk"]
+resource_name = "show_reveal"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 6, 5, 4, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_fc0ci"]
+resource_name = "vunerable"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_14ms1"]
+_data = {
+"RESET": SubResource("Animation_fte6g"),
+"enter_scene": SubResource("Animation_21gty"),
+"hide_bomb": SubResource("Animation_rnoab"),
+"missile_attack": SubResource("Animation_5l72l"),
+"moving": SubResource("Animation_t5157"),
+"show_reveal": SubResource("Animation_re4xk"),
+"vunerable": SubResource("Animation_fc0ci")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e5cip"]
+animation = &"enter_scene"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_typ2e"]
+animation = &"hide_bomb"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rlus7"]
+animation = &"missile_attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q3k0k"]
+animation = &"moving"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_em6x2"]
+animation = &"show_reveal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ricgc"]
+animation = &"vunerable"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ngl0l"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5co7d"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jdr74"]
+advance_mode = 2
+advance_condition = &"can_move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b37dp"]
+advance_mode = 2
+advance_condition = &"time_missile"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_46w0d"]
+advance_mode = 2
+advance_condition = &"can_move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vthpi"]
+advance_mode = 2
+advance_condition = &"time_bomb"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lwyku"]
+advance_mode = 2
+advance_condition = &"is_vunerable"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kippa"]
+advance_mode = 2
+advance_condition = &"can_move"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ik6ar"]
+states/Start/position = Vector2(53, 100)
+states/enter_scene/node = SubResource("AnimationNodeAnimation_e5cip")
+states/enter_scene/position = Vector2(182, 100)
+states/hide_bomb/node = SubResource("AnimationNodeAnimation_typ2e")
+states/hide_bomb/position = Vector2(581, 100)
+states/missile_attack/node = SubResource("AnimationNodeAnimation_rlus7")
+states/missile_attack/position = Vector2(441, 188)
+states/moving/node = SubResource("AnimationNodeAnimation_q3k0k")
+states/moving/position = Vector2(441, 100)
+states/show_reveal/node = SubResource("AnimationNodeAnimation_em6x2")
+states/show_reveal/position = Vector2(314, 100)
+states/vunerable/node = SubResource("AnimationNodeAnimation_ricgc")
+states/vunerable/position = Vector2(668, 182)
+transitions = ["Start", "enter_scene", SubResource("AnimationNodeStateMachineTransition_ngl0l"), "enter_scene", "show_reveal", SubResource("AnimationNodeStateMachineTransition_5co7d"), "show_reveal", "moving", SubResource("AnimationNodeStateMachineTransition_jdr74"), "moving", "missile_attack", SubResource("AnimationNodeStateMachineTransition_b37dp"), "missile_attack", "moving", SubResource("AnimationNodeStateMachineTransition_46w0d"), "missile_attack", "hide_bomb", SubResource("AnimationNodeStateMachineTransition_vthpi"), "hide_bomb", "vunerable", SubResource("AnimationNodeStateMachineTransition_lwyku"), "vunerable", "moving", SubResource("AnimationNodeStateMachineTransition_kippa")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ketg8"]
+size = Vector2(21, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uejfs"]
+size = Vector2(135, 20)
+
+[node name="TankBoy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_j5j0b")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -10)
+shape = SubResource("RectangleShape2D_2e6il")
+
+[node name="sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("1_jcjlq")
+flip_h = true
+hframes = 11
+
+[node name="missile_point" type="Marker2D" parent="sprite"]
+unique_name_in_owner = true
+position = Vector2(0, 5)
+
+[node name="bomb_point" type="Marker2D" parent="sprite"]
+unique_name_in_owner = true
+position = Vector2(2, 0)
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_14ms1")
+}
+
+[node name="anim_tree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_ik6ar")
+anim_player = NodePath("../anim_player")
+parameters/conditions/can_move = false
+parameters/conditions/is_vunerable = false
+parameters/conditions/time_bomb = false
+parameters/conditions/time_missile = false
+
+[node name="bomb_cooldown" type="Timer" parent="."]
+
+[node name="missile_cooldown" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="wall_detector" type="RayCast2D" parent="."]
+position = Vector2(-1, -10)
+target_position = Vector2(-16, 0)
+collision_mask = 2
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="collision" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(1.5, -19.5)
+shape = SubResource("RectangleShape2D_ketg8")
+disabled = true
+debug_color = Color(0.935181, 1.94448e-05, 0.637471, 0.42)
+
+[node name="player_detector" type="Area2D" parent="."]
+
+[node name="collision" type="CollisionShape2D" parent="player_detector"]
+position = Vector2(-24, -10)
+shape = SubResource("RectangleShape2D_uejfs")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+position = Vector2(0, -10)
+
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_entered" from="player_detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_entered"]
